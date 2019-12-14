@@ -11,11 +11,17 @@ with fileinput.input() as f:
 
 def part1():
     cpu = Computer(DATA, 1)
-    cpu.debug = True
     while cpu.running:
         cpu.run()
     return cpu.outputs
 
 
+def part2():
+    cpu = Computer(DATA, 2)
+    while cpu.running:
+        cpu.run()
+    return cpu.outputs
+
 print(part1())
+print(part2())
 

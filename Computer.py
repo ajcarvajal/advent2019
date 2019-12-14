@@ -10,7 +10,7 @@ class Memory(list):
         self.padding = 20
 
     def checksize(self, i):
-        diff = i - self.size
+        diff = (i + 1) - self.size
         if diff > 0:
             self.list.extend([0] * (diff + self.padding))
             self.size += diff + self.padding
@@ -60,7 +60,7 @@ class Computer:
         def equal(a, b, c):
             self.memory[c] = 1 if self.memory[a] == self.memory[b] else 0
         def offset(a):
-            self.offset += a
+            self.offset += self.memory[a]
         def ret():
             self.running = False
 
