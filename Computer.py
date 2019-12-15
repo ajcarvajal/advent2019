@@ -29,15 +29,19 @@ class Memory(list):
 
 class Computer:
     def __init__(self, memory, phase):
-        self.memory = Memory(memory.copy())
+        self.memory = Memory(memory)
         self.inputs = [phase]
         self.outputs = list()
         self.func_table = self.get_func_table()
         self.index = 0
         self.running = True
         self.debug = False
+        self.interactive = False
         self.offset = 0
 
+    def set_input_func(self,func):
+        self.interactive = True
+        self.get_input = func
 
     def get_func_table(self):
         def add(a, b, c):
@@ -45,7 +49,11 @@ class Computer:
         def mult(a, b, c):
             self.memory[c] = self.memory[a] * self.memory[b]
         def write(a):
-            self.memory[a] = self.inputs.pop(0)
+            if self.interactive:
+                cpu_input = self.get_input()
+            else:
+                cpu_input = self.inputs.pop(0)
+            self.memory[a] = cpu_input
         def output(a):
             self.outputs.append(self.memory[a])
             return self.outputs[-1]
